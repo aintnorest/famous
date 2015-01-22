@@ -21,11 +21,7 @@ define(function(require, exports, module) {
      */
     function Vector(x,y,z) {
         if (arguments.length === 1 && x !== undefined) this.set(x);
-        else {
-            this.x = x || 0;
-            this.y = y || 0;
-            this.z = z || 0;
-        }
+        else _setXYZ.call(this, x, y, z);
         return this;
     }
 
@@ -260,9 +256,9 @@ define(function(require, exports, module) {
     };
 
     function _setXYZ(x,y,z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
+        this.x = x || 0;
+        this.y = y || 0;
+        this.z = z || 0;
         return this;
     }
 

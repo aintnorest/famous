@@ -79,6 +79,9 @@ define(function(require, exports, module) {
         this.options = Object.create(Scrollview.DEFAULT_OPTIONS);
         this._optionsManager = new OptionsManager(this.options);
 
+        // override default options with passed-in custom options
+        if (options) this.setOptions(options);
+
         // create sub-components
         this._scroller = new Scroller(this.options);
 
@@ -140,9 +143,6 @@ define(function(require, exports, module) {
         EventHandler.setOutputHandler(this, this._eventOutput);
 
         _bindEvents.call(this);
-
-        // override default options with passed-in custom options
-        if (options) this.setOptions(options);
     }
 
     Scrollview.DEFAULT_OPTIONS = {
@@ -273,8 +273,11 @@ define(function(require, exports, module) {
 
     function _nodeSizeForDirection(node) {
         var direction = this.options.direction;
-        var nodeSize = node.getSize();
-        return (!nodeSize) ? this._scroller.getSize()[direction] : nodeSize[direction];
+        var size = node.getSize();
+
+        return size && size[direction]
+            ? size[direction] : this._scroller.getSize(true)[direction]
+                || this.getSize(true)[direction];
     }
 
     function _handleEdge(edge) {
