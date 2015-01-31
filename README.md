@@ -4,6 +4,8 @@ Was forked on Jan 20th 2015 from the main branch <br>
 The Difference is I'm applying fixes I believe won't break anything that have yet to be added to Master along with some fixes / changes that I've implemented in my Famo.us projects.
 
 ## Pull Requests Incorporated:
+Fix context container leak #599<br>
+Transitionable delay fix #596<br>
 Fix Accumulator: Accept arrays of arbitrary length #570<br>
 Fix Matrix.set #538<br>
 Matrix.multiply: Accept 2D arrays and matrices #536<br>
