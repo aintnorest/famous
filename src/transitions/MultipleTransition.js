@@ -33,7 +33,7 @@ define(function(require, exports, module) {
      *
      * @method get
      *
-     * @return state {Number|Array} state array
+     * @return {Array} state array
      */
     MultipleTransition.prototype.get = function get() {
         for (var i = 0; i < this._instances.length; i++) {
@@ -52,11 +52,22 @@ define(function(require, exports, module) {
      * @param {Function} callback called when all endStates have been reached.
      */
     MultipleTransition.prototype.set = function set(endState, transition, callback) {
-        var _allCallback = Utility.after(endState.length, callback);
-        for (var i = 0; i < endState.length; i++) {
-            if (!this._instances[i]) this._instances[i] = new (this.method)();
-            this._instances[i].set(endState[i], transition, _allCallback);
+        var i;
+        var allCallback;
+        if (Array.isArray(endState)) {
+            if (callback) allCallback = Utility.after(endState.length, callback);
+            for (i = 0; i < endState.length; i++) {
+                if (!this._instances[i]) this._instances[i] = new (this.method)();
+                this._instances[i].set(endState[i], transition, allCallback);
+            }
+        } else {
+            if (this._instances.length === 0) this._instances[0] = new (this.method)();
+            if (callback) allCallback = Utility.after(this._instances.length, callback);
+            for (i = 0; i < this._instances.length; i++) {
+                this._instances[i].set(endState, transition, allCallback);
+            }
         }
+        return this;
     };
 
     /**
@@ -64,7 +75,7 @@ define(function(require, exports, module) {
      *
      * @method reset
      *
-     * @param  {Number|Array} startState Start state
+     * @param {Number|Array} startState Start state
      */
     MultipleTransition.prototype.reset = function reset(startState) {
         for (var i = 0; i < startState.length; i++) {

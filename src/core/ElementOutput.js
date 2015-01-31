@@ -290,6 +290,7 @@ define(function(require, exports, module) {
             this._invisible = true;
             this._element.style.display = 'none';
         }
+        Entity.unregister(this.id);
     };
 
     /**

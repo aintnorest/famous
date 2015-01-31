@@ -33,11 +33,13 @@ define(function(require, exports, module) {
 
         this.properties = {};
         this.attributes = {};
+        this.dataset = {};
         this.content = '';
         this.classList = [];
         this.size = null;
 
         this._classesDirty = true;
+        this._datasetDirty = false;
         this._stylesDirty = true;
         this._attributesDirty = true;
         this._sizeDirty = true;
@@ -68,6 +70,15 @@ define(function(require, exports, module) {
             this.attributes[n] = attributes[n];
         }
         this._attributesDirty = true;
+    };
+    //
+    //
+    Surface.prototype.setDataset = function setDataset(dataset){
+        if (this.dataset !== dataset) {
+            this.dataset = dataset;
+            this._datasetDirty = true;
+        }
+        return this;
     };
 
     /**
@@ -229,6 +240,7 @@ define(function(require, exports, module) {
         if (options.properties) this.setProperties(options.properties);
         if (options.attributes) this.setAttributes(options.attributes);
         if (options.content) this.setContent(options.content);
+        if (options.dataset) this.setDataset(options.dataset);
         return this;
     };
 
@@ -329,6 +341,11 @@ define(function(require, exports, module) {
             this._trueSizeCheck = true;
         }
 
+        if(this._datasetDirty) {
+            target[this.dataset.dataType] = this.dataset;
+            this._datasetDirty = false;
+        }
+
         if (this._stylesDirty) {
             _applyStyles.call(this, target);
             this._stylesDirty = false;
@@ -420,6 +437,7 @@ define(function(require, exports, module) {
         target.style.opacity = '';
         target.style.width = '';
         target.style.height = '';
+        if(this.dataset) delete target[this.dataset.dataType]
         _cleanupStyles.call(this, target);
         _cleanupAttributes.call(this, target);
         var classList = this.getClassList();

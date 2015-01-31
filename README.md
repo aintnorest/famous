@@ -13,3 +13,9 @@ Draggable - Fixes and new Threshold and Autocomplete options #512<br>
 Scrollview - small patches #511<br>
 Transitionable: Fix doc; Make API more consistent #499<br>
 Bug fixes for Scrollview and ViewSequence #407<br>
+
+## My Changes
+ElementOutput line under cleanup I add Entity.unregister(this.id);
+	Should allow Surfaces to clean up.
+Engine under Initialize I took out the touch move prevent default
+	it's a bad work around.

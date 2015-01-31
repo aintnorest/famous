@@ -134,9 +134,12 @@ define(function(require, exports, module) {
      */
     function initialize() {
         // prevent scrolling via browser
+        // find a better solution than below
+        /*
         window.addEventListener('touchmove', function(event) {
             event.preventDefault();
         }, true);
+        */
 
         addRootClasses();
     }
