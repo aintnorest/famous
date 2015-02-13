@@ -55,7 +55,7 @@ define(function(require, exports, module) {
     RenderController.DEFAULT_OPTIONS = {
         inTransition: true,
         outTransition: true,
-        overlap: true
+        overlap: false
     };
 
     RenderController.DefaultMap = {

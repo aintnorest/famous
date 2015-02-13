@@ -331,6 +331,9 @@ define(function(require, exports, module) {
     Surface.prototype.commit = function commit(context) {
         if (!this._currentTarget) this.setup(context.allocator);
         var target = this._currentTarget;
+        if(this.dataset != undefined){
+            if(target[this.dataset.dataType] === undefined) target[this.dataset.dataType] = this.dataset;
+        }
         var size = context.size;
 
         if (this._classesDirty) {

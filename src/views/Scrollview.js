@@ -584,10 +584,12 @@ define(function(require, exports, module) {
         }
 
         if (options.groupScroll !== this.options.groupScroll) {
+            /*
             if (options.groupScroll)
                 this.subscribe(this._scroller);
             else
                 this.unsubscribe(this._scroller);
+            */
         }
 
         // patch custom options
@@ -596,7 +598,7 @@ define(function(require, exports, module) {
         // propagate options to sub-components
 
         // scroller sub-component
-        this._scroller.setOptions(options);
+        //this._scroller.setOptions(options);
 
         // physics sub-components
         if (options.drag !== undefined) this.drag.setOptions({strength: this.options.drag});
@@ -629,9 +631,9 @@ define(function(require, exports, module) {
      * @param {Array|ViewSequence} node Either an array of renderables or a Famous viewSequence.
      */
     Scrollview.prototype.sequenceFrom = function sequenceFrom(node) {
-        if (node instanceof Array) node = new ViewSequence({array: node, trackSize: true});
-        this._node = node;
-        return this._scroller.sequenceFrom(node);
+        if (node instanceof Array) n = new ViewSequence({array: node, trackSize: true});
+        this._scroller.sequenceFrom(n);
+        this._node = n;
     };
 
     /**
