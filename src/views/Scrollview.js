@@ -513,10 +513,18 @@ define(function(require, exports, module) {
      * @return {number} The position of the Scrollview's current Node,
      * in pixels translated.
      */
+    /*
     Scrollview.prototype.getAbsolutePosition = function getAbsolutePosition() {
         return this._scroller.getCumulativeSize(this.getCurrentIndex())[this.options.direction] + this.getPosition();
     };
+    */
+    Scrollview.prototype.getAbsolutePosition = function getAbsolutePosition() {
+        if (this._scroller.getCumulativeSize(this.getCurrentIndex())) {
+            this._lastCummulativeSize = this._scroller.getCumulativeSize(this.getCurrentIndex())[this.options.direction];
+        }
 
+        return this._lastCummulativeSize + this.getPosition();
+    };
     /**
      * Returns the offset associated with the Scrollview instance's current node
      *  (generally the node currently at the top).
