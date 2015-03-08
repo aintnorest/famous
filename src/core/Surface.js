@@ -432,6 +432,7 @@ define(function(require, exports, module) {
      * @param {ElementAllocator} allocator
      */
     Surface.prototype.cleanup = function cleanup(allocator) {
+        if(this._currentTarget === null) return;
         var i = 0;
         var target = this._currentTarget;
         this._eventOutput.emit('recall');
@@ -485,6 +486,8 @@ define(function(require, exports, module) {
      * @method recall
      */
     Surface.prototype.recall = function recall(target) {
+        /*Next line was a quick fix */
+        if(target === null) return;
         var df = document.createDocumentFragment();
         while (target.hasChildNodes()) df.appendChild(target.firstChild);
         this.setContent(df);
